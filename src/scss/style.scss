@@ -1,0 +1,341 @@
+/**======================================================================
+=========================================================================
+Template Name: Next Admin Template
+Author: Codedthemes
+File: style.css
+=========================================================================
+=========================================================================
+  == Table of Contents==
+	- Generic classes
+		-	Margin, Padding, Font class, text align, position, floating, overflow, background class, text color, display class, boarder class
+	- Theme Elements
+		-	Accordion, Button, tabs, typography, buttons, box shadow, Lable & Badges, Alert, Pagination, Breadcumb, Cards, Collapse,
+        -   Carousel, Grid, Progress, Model, tooltip, popover, Datepicker, Gridstack, lightbox, notification, Nestable, pnotify, rating,
+        -   Rangeslider, Slider, Syntax Highlighter, Tour, Treeview, Toolbar, Session Timeout, Session idle Timeout, offline, Animation
+    - Forms
+        -   Forms Elements, Advance Form Control, Validation, Masking, Wizard, Picker, Select
+	- Pages
+		-   authentication, Maintenance, Maps, Landing page messages, task, Todo, Notes, Charts, Icons, Gallery, Editors,
+        -   Invoice, Full Calender, File Upload,
+=================================================================================
+=================================================================================== */
+
+// Theme Font
+@import "themes/font/theme-font";
+
+// theme scrollbar
+@import "themes/plugin/perfect-scrollbar";
+
+// main framework
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "settings/custom-variables";
+@import "settings/theme-variables";
+
+// bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// icon
+@import "themes/font/datta-icon";
+@import "themes/font/feather";
+@import "themes/font/fontawesome";
+
+// bootstrap css
+@import "themes/bootstrap-overlay/card";
+@import "themes/bootstrap-overlay/button";
+@import "themes/bootstrap-overlay/radiobox-checkbox";
+@import "themes/bootstrap-overlay/switches";
+@import "themes/bootstrap-overlay/badge";
+
+@import "themes/general";
+@import "themes/generic";
+@import "themes/plugin/animate";
+
+// theme layouts
+@import "themes/layouts/menu-lite";
+@import "themes/layouts/menu-ng";
+
+// Dashboard Widgets
+@import "themes/dashboard/widget";
+
+// pages
+@import "themes/pages/authentication";
+@import "themes/pages/maintaince";
+@import "themes/pages/pages";
+@import "themes/pages/user";
+
+// custom
+@import "themes/custom";
+
+body .ui-table-primedatatable {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12) !important;
+}
+
+body .datatable-badge {
+  border-radius : 2px !important;
+  padding       : 0.25em 0.5em !important;
+  text-transform: uppercase !important;
+  font-weight   : 700 !important;
+  font-size     : 12px;
+  letter-spacing: 0.3px;
+
+  &.status-Active {
+    background-color: #c8e6c9;
+    color           : #256029;
+  }
+
+  &.status-InActive {
+    background-color: #ffd8b2;
+    color           : #805b36;
+  }
+
+  &.status-Inactive {
+    background-color: #ffd8b2;
+    color           : #805b36;
+  }
+  // child status
+  &.status-1 {
+    background-color: #c8e6c9;
+    color           : #256029;
+  }
+
+  &.status-2 {
+    background-color: #b3e5fc;
+    color           : #23547b;
+  }
+
+  &.status-3 {
+    background-color: #ffd8b2;
+    color           : #805b36;
+  }
+
+  &.status-4 {
+    background-color: #ECCFFF;
+    color           : #694382;
+  }
+
+  &.status-5 {
+    background-color: #ECCFFF;
+    color           : #694382;
+  }
+
+  &.status-6 {
+    background-color: #FFD8B2;
+    color           : #805B36;
+  }
+
+  &.status-7 {
+    background-color: #B3E5FC;
+    color           : #23547B;
+  }
+
+  &.status-8 {
+    background-color: #ffcdd2;
+    color           : #c63737;
+  }
+
+  &.status-8 {
+    background-color: #ffcdd2;
+    color           : #c63737;
+  }
+}
+
+body .ui-table-primedatatable .ui-table-tbody>tr>td {
+  padding: 0.100em 0.500em !important;
+}
+
+.asteriskRequiredColor {
+  border: 0;
+  color : red;
+}
+
+.view-user-info {
+  .card-body {
+    display   : flex;
+    overflow  : hidden;
+    max-height: 300px;
+  }
+}
+
+.validationErrorMsg {
+  color      : #ff3838 !important;
+  font-weight: 500 !important;
+}
+
+.dropZone-style {
+  height       : 50px !important;
+  margin       : auto !important;
+  border       : 2px dotted #0782d0 !important;
+  border-radius: 30px !important;
+}
+
+.content-style {
+  display        : flex !important;
+  align-items    : center !important;
+  justify-content: center !important;
+  height         : 45px !important;
+  color          : #0782d0 !important;
+}
+
+.addSeparatedDataStyle {
+  .modal-dialog {
+    .modal-content {
+      width: 535px !important;
+
+      .modal-body {
+        overflow-y: scroll;
+        max-height: 400px;
+      }
+
+      .modal-footer {
+        justify-content: flex-start;
+        margin-left    : 20px;
+        margin-bottom  : 5px;
+      }
+    }
+  }
+}
+
+.displayParentSourceDialogStyle,
+.displayChildSourceDialogStyle,
+.dragdropErrorsDialogStyle {
+  .ui-dialog-content {
+    overflow-x: hidden !important;
+  }
+}
+
+.viewSourceDialogStyle {
+  .ui-dialog-content {
+    overflow-y: unset !important;
+  }
+}
+
+bs-datepicker-container {
+  z-index: 10000 !important;
+  top    : -117px !important;
+}
+
+bs-daterangepicker-container {
+  top : -110px !important;
+  left: 30px !important;
+}
+
+// Chirag
+.pcoded-content {
+  padding: 20px !important;
+}
+
+.pcoded-main-container {
+  .page-header {
+    margin-bottom: 15px !important;
+  }
+}
+
+.card {
+  margin-bottom: 15px !important;
+}
+
+.card-padding {
+  .card-header {
+    padding: 10px 10px !important;
+  }
+
+  .card .card-body {
+    padding: 8px !important;
+  }
+}
+
+.pcoded-navbar.theme-horizontal .sidenav-horizontal-wrapper .pcoded-inner-navbar .pcoded-hasmenu .pcoded-submenu {
+  padding  : 5px !important;
+  min-width: 100px !important;
+}
+
+.table-align-left {
+  .table-card {
+    .card-body {
+      .table tr td:first-child {
+        padding-left: 5px !important;
+      }
+    }
+  }
+}
+
+.textarea-size {
+  resize    : none !important;
+  height    : 80px !important;
+  min-height: 80px !important;
+  max-height: 80px !important;
+}
+
+.textarea-size-child {
+  resize    : none !important;
+  height    : 120px !important;
+  min-height: 120px !important;
+  max-height: 120px !important;
+}
+
+.font-bold {
+  font-weight: 800 !important;
+}
+
+// End Chirag
+
+// hardik start
+.primgrTableTop {
+  // for list page table
+  border-top: 0.2em solid !important;
+
+  .ui-table-scrollable-header {
+    overflow: unset;
+  }
+
+  .ui-table-scrollable-header-box {
+    padding-right: 0px !important;
+  }
+
+  .ui-table-scrollable-body {
+    overflow: unset;
+  }
+
+  .ui-dropdown.ui-dropdown-clearable .ui-dropdown-label {
+    padding-right: 0px;
+  }
+}
+
+.tableColumnClass {
+  .ui-table .ui-table-tbody>tr>td {
+    padding   : 0px 0px 0px 0px !important;
+    text-align: center;
+  }
+
+  .ui-table .ui-table-thead>tr>th {
+    text-align: center !important;
+  }
+}
+
+.page-wrapper {
+  width: 100% !important;
+}
+
+// for header source list header
+.page-wrapper {
+  .fit-table {
+    width: fit-content !important;
+  }
+}
+
+// for all dropdown
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item,
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group.ui-state-highlight {
+  padding: 3px;
+}
+
+.note-textarea {
+  resize    : none;
+  height    : 80px;
+  min-height: 80px;
+  max-height: 80px;
+}
+
+// hardik end
+

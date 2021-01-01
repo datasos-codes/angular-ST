@@ -1,0 +1,45 @@
+<div class="row" appDraggableDialog>
+    <div class="col-md-12">
+        <form [formGroup]="editChildSourceForm" (ngSubmit)="onSubmitEditChildSourceDetails()">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Status <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="statusId" id="statusId_{{editChildSource.sourceUpdateId}}"
+                        placeholder="Status" [ngModel]='editChildSource.statusId'
+                        [ngClass]="{ 'is-invalid': submitted && editChildControls.statusId.errors }"
+                        [style]="{'width':'100%'}" [options]="statusList">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editChildControls.statusId.errors" class="validationErrorMsg">
+                        <div *ngIf="editChildControls.statusId.errors.required">Status is required.</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Date received <span class="asteriskRequiredColor">*</span> :</label>
+                    <input type="text" formControlName="TreceivedDate" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY',adaptivePosition: true,isAnimated: true, containerClass:'theme-dark-blue'}"
+                        id="TreceivedDate_{{editChildSource.sourceUpdateId}}" class="form-control"
+                        placeholder="Date received" [ngModel]='editChildSource.TreceivedDate'
+                        [ngClass]="{ 'is-invalid': submitted && editChildControls.TreceivedDate.errors }"
+                        onkeydown="return false" onpaste="return">
+                    <div *ngIf="submitted && editChildControls.TreceivedDate.errors" class="validationErrorMsg">
+                        <div *ngIf="editChildControls.TreceivedDate.errors.required">Date Received is
+                            required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Note <span class="asteriskRequiredColor">*</span> :</label>
+                    <textarea rows="3" cols="3" formControlName="note" id="note_{{editChildSource.sourceUpdateId}}"
+                        class="form-control textarea-size-child" placeholder="Note" [ngModel]='editChildSource.note'
+                        [ngClass]="{ 'is-invalid': submitted && editChildControls.note.errors }">
+                    </textarea>
+                    <div *ngIf="submitted && editChildControls.note.errors" class="validationErrorMsg">
+                        <div *ngIf="editChildControls.note.errors.required">Note is required.</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary mr-1 btn-sm"><i class="feather icon-check-circle"></i> &nbsp;Save</button>
+        </form>
+    </div>
+</div>

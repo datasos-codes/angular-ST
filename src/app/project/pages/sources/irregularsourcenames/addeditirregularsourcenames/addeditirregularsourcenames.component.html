@@ -1,0 +1,54 @@
+<div class="row" appDraggableDialog>
+    <div class="col-md-12">
+        <form [formGroup]="addEditIrregularSourceFrm" (ngSubmit)="onSubmitaddEditIrregularSourceFrmDetails()">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>State <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="stateId" placeholder="State" [ngModel]='editIrregularSource.stateId'
+                        [ngClass]="{ 'is-invalid': submitted && editSourceControls.stateId.errors }"
+                        [style]="{'width':'100%','min-width':'100%'}" [options]="stateNames" [filter]="true"
+                        (onChange)='bindSourceNameBasedonState($event.value)'>
+                    </p-dropdown>
+                    <div *ngIf="submitted && editSourceControls.stateId.errors" class="validationErrorMsg">
+                        <div *ngIf="editSourceControls.stateId.errors.required">This field is required.</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Source <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="sourceId" placeholder="Source" [ngModel]='editIrregularSource.sourceId'
+                        [ngClass]="{ 'is-invalid': submitted && editSourceControls.sourceId.errors }"
+                        [style]="{'width':'100%','min-width':'100%'}" [options]="testData" [filter]="true">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editSourceControls.sourceId.errors" class="validationErrorMsg">
+                        <div *ngIf="editSourceControls.sourceId.errors.required">This field is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label>File pattern<span class="asteriskRequiredColor">*</span> :</label>
+                    <input type="text" pInputText formControlName="filePattern" class="form-control"
+                        placeholder="File pattern" [ngModel]='editIrregularSource.filePattern'>
+                    <div class="validationErrorMsg" *ngIf="submitted && editSourceControls.filePattern.errors">
+                        <div *ngIf="editSourceControls.filePattern.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Status<span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="status" placeholder="Status" [ngModel]='editIrregularSource.status'
+                        [ngClass]="{ 'is-invalid': submitted && editSourceControls.status.errors }"
+                        [style]="{'width':'100%','min-width':'100%'}" [options]="statusData">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editSourceControls.status.errors" class="validationErrorMsg">
+                        <div *ngIf="editSourceControls.status.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary mr-1 btn-sm"><i class="feather icon-check-circle"></i> &nbsp;Save</button>
+        </form>
+    </div>
+</div>

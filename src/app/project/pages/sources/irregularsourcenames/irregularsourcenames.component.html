@@ -1,0 +1,71 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin" [fullScreen]="true">
+    <p style="color: white; font-size: 20px;"> Loading... </p>
+</ngx-spinner>
+
+<div class="row card-padding">
+    <div class="col-sm-12 tableColumnClass">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">Irregular Source Names</h5>
+            <div class="primgrTableTop">
+                <p-table #irregularSourceNamesTable [columns]="cols" [value]="irregularSourceNamesData"
+                    styleClass="ui-table-primedatatable" (sortFunction)="customSortForirregularSourceNamesTable($event)"
+                    [customSort]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="ui-helper-clearfix" style="text-align: left">
+                            <!-- Add -->
+                            <button type="button" class="btn btn-success btn-sm" style="margin-right: 0.5em;"
+                                (click)="addEditIrrgularSource($event)" ngbTooltip="Add" [placement]="'bottom'">
+                                <i class="feather icon-plus"></i>&nbsp;Add
+                            </button>
+                            <!-- globle search -->
+                            <input pInputText type="text" style="float:right;width:auto;" size="50"
+                                (input)="irregularSourceNamesTable.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search" />
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 2em;"></th>
+                            <th pSortableColumn="stateAbbreviation" style="width: 4em;">State
+                                <p-sortIcon field="stateAbbreviation"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="sourceName" style="width: 10em;">Source name
+                                <p-sortIcon field="sourceName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="filePattern" style="width: 10em;">File pattern
+                                <p-sortIcon field="filePattern"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="status" style="width: 5em;">Status
+                                <p-sortIcon field="status"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td style="width:2em;">
+                                <button type="button" class="btn btn-icon btn-primary m-1 btn-sm" ngbTooltip="Edit"
+                                    (click)="addEditIrrgularSource($event,rowData)" [placement]="'bottom'"><i
+                                        class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                            <td style="width: 4em;">{{rowData.stateAbbreviation}}</td>
+                            <td style="width: 10em;padding-left: 10px !important;text-align: left;">
+                                {{rowData.sourceName}}</td>
+                            <td style="width: 10em;">{{rowData.filePattern}}</td>
+                            <td style="width: 5em;">
+                                <span [class]="'datatable-badge status-' + rowData.status">
+                                    {{rowData.status}}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="5" style="text-align:center">No records found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </app-card>
+    </div>
+</div>

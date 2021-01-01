@@ -1,0 +1,183 @@
+<div class="row" appDraggableDialog>
+    <div class="col-md-12">
+        <form [formGroup]="editParentSourceForm" (ngSubmit)="onSubmitEditParentSourceDetails()">
+            <div class="form-group">
+                <label>Source name<span class="asteriskRequiredColor">*</span> :</label>
+                <input type="text" formControlName="sourceName" id="sourceName_{{editParentSource.sourceId}}"
+                    class="form-control" placeholder="Source name" [ngModel]='editParentSource.sourceName'
+                    [ngClass]="{ 'is-invalid': submitted && editParentControls.sourceName.errors }">
+                <div class="validationErrorMsg" *ngIf="submitted && editParentControls.sourceName.errors">
+                    <div *ngIf="editParentControls.sourceName.errors.required">
+                        This field is required.
+                    </div>
+                    <div *ngIf="editParentControls.sourceName.errors?.pattern">
+                        This field is Invalid.
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Tracker source no.</label>
+                    <input type="text" formControlName="sourceNo" id="sourceNo_{{editParentSource.sourceId}}"
+                        class="form-control" placeholder="Tracker source no." [ngModel]='editParentSource.sourceNo'
+                        disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Database source no.</label>
+                    <input type="text" formControlName="dbSourceNO" id="dbSourceNO_{{editParentSource.sourceId}}"
+                        class="form-control" placeholder="Database source no." [ngModel]='editParentSource.dbSourceNO'
+                        disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Public status comment <span class="asteriskRequiredColor">*</span> :</label>
+                    <input type="text" formControlName="publicStatusCommnent"
+                        id="publicStatusCommnent_{{editParentSource.sourceId}}" class="form-control"
+                        placeholder="Public status comment" [ngModel]='editParentSource.publicStatusCommnent'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.publicStatusCommnent.errors }">
+                    <div *ngIf="submitted && editParentControls.publicStatusCommnent.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.publicStatusCommnent.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Owner <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="ownerId" id="ownerId_{{editParentSource.sourceId}}" placeholder="Owner"
+                        [ngModel]='editParentSource.ownerId'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.ownerId.errors }"
+                        [style]="{'width':'100%'}" [options]="ownerNames">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.ownerId.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.ownerId.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Frequency <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="frequencyId" id="frequencyId_{{editParentSource.sourceId}}"
+                        placeholder="Frequency" [ngModel]='editParentSource.frequencyId'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.frequencyId.errors }"
+                        [style]="{'width':'100%'}" [options]="updateFrequencys">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.frequencyId.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.frequencyId.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>File type <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="updateType" id="updateType_{{editParentSource.sourceId}}"
+                        placeholder="Update type" [ngModel]='editParentSource.updateType'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.updateType.errors }"
+                        [style]="{'width':'100%'}" [options]="UpdateTypes">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.updateType.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.updateType.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Source type <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="sourceTypeId" id="sourceTypeId_{{editParentSource.sourceId}}"
+                        placeholder="Source type" [ngModel]='editParentSource.sourceTypeId'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.sourceTypeId.errors }"
+                        [style]="{'width':'100%'}" [options]="sourceTypes">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.sourceTypeId.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.sourceTypeId.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Processed at <span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="processedAt" id="processedAt_{{editParentSource.sourceId}}"
+                        placeholder="Process at" [ngModel]='editParentSource.processedAt'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.processedAt.errors }"
+                        [style]="{'width':'100%'}" [options]="ProcessAts">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.processedAt.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.processedAt.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Status<span class="asteriskRequiredColor">*</span> :</label>
+                    <p-dropdown formControlName="isActive" id="isActive_{{editParentSource.sourceId}}"
+                        placeholder="Status" [ngModel]='editParentSource.isActive'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.isActive.errors }"
+                        [style]="{'width':'100%'}" [options]="statusData">
+                    </p-dropdown>
+                    <div *ngIf="submitted && editParentControls.isActive.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.isActive.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Description <span class="asteriskRequiredColor">*</span> :</label>
+                    <textarea formControlName="description" id="description_{{editParentSource.sourceId}}"
+                        class="form-control textarea-size" placeholder="Description"
+                        [ngModel]='editParentSource.description'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.description.errors }"
+                        rows="3"></textarea>
+                    <div *ngIf="submitted && editParentControls.description.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.description.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Notes <span class="asteriskRequiredColor">*</span> :</label>
+                    <textarea formControlName="notes" id="notes_{{editParentSource.sourceId}}"
+                        class="form-control textarea-size" placeholder="Notes" [ngModel]='editParentSource.notes'
+                        [ngClass]="{ 'is-invalid': submitted && editParentControls.notes.errors }" rows="3"></textarea>
+                    <div *ngIf="submitted && editParentControls.notes.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.notes.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" formControlName="hasPhoto"
+                            id="hasPhotoCheckBox_{{editParentSource.sourceId}}" [ngModel]='editParentSource.hasPhoto'
+                            (change)="checkValue($event)">
+                        <label class="custom-control-label" for="hasPhotoCheckBox_{{editParentSource.sourceId}}">Has
+                            photos?</label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" *ngIf="editParentControls.hasPhoto.value === true">
+                    <label>Photo path <span class="asteriskRequiredColor">*</span> :</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"
+                                id="basic_{{editParentSource.sourceId}}">/image/SOR/AK/</span>
+                        </div>
+                        <input type="text" formControlName="photoPath" id="photoPath_{{editParentSource.sourceId}}"
+                            class="form-control" placeholder="Photo path" [ngModel]='editParentSource.photoPath'
+                            [ngClass]="{ 'is-invalid': submitted && editParentControls.photoPath.errors }">
+                    </div>
+                    <div *ngIf="submitted && editParentControls.photoPath.errors" class="validationErrorMsg">
+                        <div *ngIf="editParentControls.photoPath.errors.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary mr-1 btn-sm"><i class="feather icon-check-circle"></i> &nbsp;Save</button>
+        </form>
+    </div>
+</div>

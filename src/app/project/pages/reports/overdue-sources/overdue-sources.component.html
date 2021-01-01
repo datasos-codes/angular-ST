@@ -1,0 +1,67 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin" [fullScreen]="true">
+    <p style="color: white; font-size: 20px;"> Loading... </p>
+</ngx-spinner>
+
+<div class="row card-padding">
+    <div class="col-sm-12 tableColumnClass">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">Overdue Sources</h5>
+            <div class="primgrTableTop">
+                <p-table #overdueSourcesTable [columns]="cols" [value]="overdueSources"
+                    styleClass="ui-table-primedatatable" (sortFunction)="customSortForOverdueSourcesTable($event)" [customSort]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="ui-helper-clearfix" style="text-align: left">
+                            <!-- Export to excel -->
+                            <button type="button" class="btn btn-success btn-sm" style="margin-right: 0.5em;"
+                                (click)="exportToExcel($event)" ngbTooltip="Export To Excel" [placement]="'bottom'">
+                                <i class="feather icon-file"></i>&nbsp;Export To Excel
+                            </button>
+                            <!-- globle search -->
+                            <input pInputText type="text" style="float:right;width:auto;" size="50"
+                                (input)="overdueSourcesTable.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search" />
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th pSortableColumn="stateAbbreviation" style="width: 3em;">State
+                                <p-sortIcon field="stateAbbreviation"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="sourceName" style="width: 12em;">Source name
+                                <p-sortIcon field="sourceName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="sourceRec" style="width: 4em;">Source provider
+                                <p-sortIcon field="sourceRec"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="updateFrequency" style="width: 5em;">Frequency
+                                <p-sortIcon field="updateFrequency"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="dateReceived" style="width: 4em;">Last received
+                                <p-sortIcon field="dateReceived"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="expectedDate" style="width: 4em;">Expected date
+                                <p-sortIcon field="expectedDate"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td style="width: 3em;">{{rowData.stateAbbreviation}}</td>
+                            <td style="width: 12em;padding-left: 10px !important;text-align: left;">
+                                {{rowData.sourceName}}</td>
+                            <td style="width: 4em;">{{rowData.sourceRec}}</td>
+                            <td style="width: 5em;">{{rowData.updateFrequency}}</td>
+                            <td style="width: 4em;">{{rowData.dateReceived}}</td>
+                            <td style="width: 4em;">{{rowData.expectedDate}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6" style="text-align:center">No records found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </app-card>
+    </div>
+</div>

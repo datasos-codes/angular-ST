@@ -1,0 +1,248 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin" [fullScreen]="true">
+    <p style="color: white; font-size: 20px;"> Loading... </p>
+</ngx-spinner>
+
+<div class="row">
+    <div class="col-md-12 card-padding">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">Add Source Information</h5>
+            <form novalidate role="form" [formGroup]="addSourceForm">
+                <div formArrayName="sourcesArr">
+                    <table class="table m-b-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 3em;"></th>
+                                <th style="width: 3em;"></th>
+                                <th style="width: 6em;">State</th>
+                                <th style="width: 30em;">Source name</th>
+                                <th style="width: 10em;">Source no</th>
+                                <th style="width: 10em;">Frequency</th>
+                                <th style="width: 10em;">Source type</th>
+                                <th style="width: 10em;">Update type</th>
+                                <th style="width: 6em;">Has Photos?</th>
+                                <th style="width: 22em;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let userData of t.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                    <button type="button" class="btn btn-icon btn-info btn-sm" ngbTooltip="View"
+                                        [placement]="'bottom'" (click)="viewStateSources($event,userData['controls'])">
+                                        <i class="feather icon-info"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-icon btn-danger btn-sm"
+                                        (click)="removeSource(i,userData['controls'])" *ngIf="i > 0" ngbTooltip="Delete"
+                                        [placement]="'bottom'">
+                                        <i class="feather icon-trash"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <p-dropdown id="stateId" [options]="stateNames" formControlName="stateId"
+                                            [style]="{'width':'100%','min-width':'100%'}"
+                                            [ngModel]="userData['controls'].stateId.value? userData['controls'].stateId.value : selectedStateId"
+                                            (onChange)="bindSourceNumberBySourceID(i,userData['controls'])"
+                                            placeholder="State">
+                                        </p-dropdown>
+                                        <div class=" validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].stateId.errors?.required">
+                                            <div *ngIf="userData['controls'].stateId.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <input id="sourceName" type="text" pInputText formControlName="sourceName"
+                                            placeholder="Source name"
+                                            style="width: 100% !important;min-width: 100% !important;" />
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].sourceName.errors?.required">
+                                            <div *ngIf="userData['controls'].sourceName.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                        <div *ngIf="userData['controls'].sourceName.errors?.pattern"
+                                            class="validationErrorMsg">
+                                            This field is Invalid.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <input #sourceNo id="sourceNo" type="text" pInputText formControlName="sourceNo"
+                                            placeholder="Source no"
+                                            style="width: 100% !important;min-width: 100% !important;" />
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].sourceNo.errors">
+                                            <div *ngIf="userData['controls'].sourceNo.errors?.required">
+                                                This field is required.
+                                            </div>
+                                            <div *ngIf="userData['controls'].sourceNo.errors?.pattern">
+                                                This field is Invalid.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <p-dropdown id="updateFrequencyId" [options]="updateFrequencys"
+                                            formControlName="updateFrequencyId" placeholder="Frequency"
+                                            [ngModel]='defaultFrequency' [style]="{'width':'100%','min-width':'100%'}">
+                                        </p-dropdown>
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].updateFrequencyId.errors?.required">
+                                            <div *ngIf="userData['controls'].updateFrequencyId.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <p-dropdown id="sourceTypeId" [options]="sourceTypes"
+                                            formControlName="sourceTypeId" placeholder="Source type"
+                                            [ngModel]='defaultSourceType' [style]="{'width':'100%','min-width':'100%'}">
+                                        </p-dropdown>
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].sourceTypeId.errors?.required">
+                                            <div *ngIf="userData['controls'].sourceTypeId.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <p-dropdown id="updateType" [options]="UpdateTypes" formControlName="updateType"
+                                            placeholder="Update type" [ngModel]='defaultUpdateType'
+                                            [style]="{'width':'100%','min-width':'100%'}">
+                                        </p-dropdown>
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].updateType.errors?.required">
+                                            <div *ngIf="userData['controls'].updateType.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <div class="custom-control custom-checkbox"
+                                            style="margin:5px 25px 5px 25px !important;">
+                                            <input type="checkbox" class="custom-control-input" id="hasPhotos_{{i}}"
+                                                formControlName="hasPhotos" (change)="isPhotoPathValidation($event,i)"
+                                                style="width: 100% !important;min-width: 100% !important;">
+                                            <label class="custom-control-label" for="hasPhotos_{{i}}">
+                                            </label>
+                                        </div>
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].hasPhotos.errors?.required">
+                                            <div *ngIf="userData['controls'].hasPhotos.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td *ngIf="userData['controls'].hasPhotos.value">
+                                    <div class="form-group" style="margin-bottom: 0 !important">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic">/image/SOR/AK/</span>
+                                            </div>
+                                            <input id="photoPath" type="text" pInputText formControlName="photoPath"
+                                                placeholder="Photo path"
+                                                style="width: 48% !important;min-width: 48% !important;" />
+                                        </div>
+                                        <div class="validationErrorMsg"
+                                            *ngIf="submitted && userData['controls'].hasPhotos.value && userData['controls'].photoPath.errors?.required">
+                                            <div *ngIf="userData['controls'].photoPath.errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="row addSourceUpdateFilesSubmitBtn">
+                <button type="button" [placement]="'bottom'" ngbTooltip="Add More" (click)="addNewSource()"
+                    class="btn btn-icon btn-success mr-2  btn-sm">
+                    <i class="feather icon-plus"></i>
+                </button>
+                <button class="btn btn-primary mr-2 btn-sm" type="button" (click)="onSubmitAddSourceForm()"
+                    *ngIf="!this.btnLoader">
+                    <i class="feather icon-check-circle"></i> &nbsp;Save
+                </button>
+                <button class="btn btn-primary mr-2 btn-sm" type="button" *ngIf="this.btnLoader" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <span class="load-text"> Loading...</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm"
+                    (click)="clearAddSourceInformation()">Clear</button>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<div class="row card-padding">
+    <div class="col-sm-2">
+        <app-card [hidHeader]="true" [options]='false'>
+            <h5 class="mt-2">Reserved State Sources</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Source name</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let data of reservedStateSourcesArry">
+                        <tr>
+                            <td>{{data.sNo}}</td>
+                            <td>{{data.sName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+    <div class="col-sm-4">
+        <app-card [hidHeader]="true" cardClass="comp-card" [options]='false'>
+            <div class="div" style="margin-bottom: 5px !important;">
+                <h5 class="mt-2">Add More Rows</h5>
+                <form class="form-row" [formGroup]="addRowsForm">
+                    <div class="form-group col-md-6">
+                        <input type="number" formControlName="rowNumber" class="form-control" #addrow id="addrow"
+                            (keydown.enter)="addNewRows(addrow.value,$event)" placeholder="Number only"
+                            style="width: 100%;min-width: 100%;" pattern="/^-?\d+\.?\d*$/"
+                            onKeyPress="if(this.value.length==2) return false;" min="0" max="99" />
+                    </div>
+                </form>
+            </div>
+            <div class="div">
+                <h5 class="mt-2">Tab Separated Source Information</h5>
+                <form class="form-row" [formGroup]="getReportsFrom">
+                    <div class="form-group col-md-6">
+                        <textarea class="form-control tabseparated-textarea" formControlName="tabSeparatedData" rows="2"
+                            cols="2" placeholder="Enter information" #tsd id="tsd"
+                            style="width: 100%;min-width: 100%;"></textarea>
+                    </div>
+                    <div class="form-group mx-md-1">
+                        <button type="submit" class="btn btn-primary mr-2 btn-sm"
+                            (click)="addTabSeparatedData(tsd.value,$event)">
+                            <i class="feather icon-plus"></i>&nbsp;Upload Data
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            (click)="clearTabSeparatedData()">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </app-card>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="card">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12">
+          <div class="card-body">
+            <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
+            <h4 class="mb-3 f-w-400">Source Tracker | Signin</h4>
+            <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="feather icon-user"></i></span>
+                </div>
+                <input type="text" pInputText formControlName="username" class="form-control" placeholder="Username"
+                  [ngClass]="{ 'is-invalid': submitted && validationControls.username.errors }" />
+                <div *ngIf="submitted && validationControls.username.errors" class="invalid-feedback">
+                  <div *ngIf="validationControls.username.errors.required">
+                    <span class="validationErrorMsg">Username is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="feather icon-lock"></i></span>
+                </div>
+                <input type="password" pInputText formControlName="password" class="form-control" placeholder="Password"
+                  [ngClass]="{ 'is-invalid': submitted && validationControls.password.errors }" />
+                <div *ngIf="submitted && validationControls.password.errors" class="invalid-feedback">
+                  <div *ngIf="validationControls.password.errors.required">
+                    <span class="validationErrorMsg">Password is required.</span>
+                  </div>
+                </div>
+              </div>
+              <button *ngIf="!loading" type="submit" class="btn btn-block btn-primary mb-4">Signin</button>
+              <button *ngIf="loading" class="btn btn-primary" color="primary" type="button" disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span>Loading...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

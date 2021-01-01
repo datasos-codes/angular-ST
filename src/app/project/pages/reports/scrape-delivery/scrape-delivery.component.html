@@ -1,0 +1,147 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin" [fullScreen]="true">
+    <p style="color: white; font-size: 20px;"> Loading... </p>
+</ngx-spinner>
+
+<div class="row card-padding">
+    <div class="col-sm-12">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">Received Dates</h5>
+            <form class="form-row" [formGroup]="getReportsFrom">
+                <div class="form-group col-md-2"></div>
+                <div class="form-group mb-2">
+                    <input type="text" readonly class="form-control-plaintext" value="Received Between :">
+                </div>
+                <div class="form-group col-md-2">
+                    <input type="text" formControlName="receivedDates" placeholder="Choose dates"
+                        class="form-control form-control-sm" bsDaterangepicker id="receivedDatesValue"
+                        #receivedDatesValue
+                        [bsConfig]="{ adaptivePosition: true,isAnimated: true, containerClass:'theme-dark-blue' }"
+                        onkeydown="return false" onpaste="return">
+                </div>
+                <div class="form-group mx-md-1">
+                    <button type="submit" class="btn btn-primary mr-2 btn-sm"
+                        (click)="getAllReports(receivedDatesValue.value,$event)" ngbTooltip="Reports"
+                        [placement]="'bottom'">
+                        <i class="feather icon-check-circle"></i>&nbsp;Get Reports
+                    </button>
+                    <button type="button" class="btn btn-success mr-2 btn-sm" (click)="exportToExcelReports($event)"
+                        ngbTooltip="Export To Excel" [placement]="'bottom'">
+                        <i class="feather icon-file"></i>&nbsp;Export To Excel
+                    </button>
+                    <button type="button" class="btn btn-info mr-2 btn-sm" (click)="showSummaryOfReports($event)"
+                        ngbTooltip="Show Summary" [placement]="'bottom'">
+                        <i class="feather icon-info"></i>&nbsp;Show Summary
+                    </button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>
+
+<div class="row card-padding">
+    <div class="col-sm-12 tableColumnClass">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">New Scrape(s) {{newScrapesLength}}</h5>
+            <div class="primgrTableTop">
+                <p-table #newScrapeTable [columns]="cols" [value]="newScrapesData" styleClass="ui-table-primedatatable"
+                (sortFunction)="customSortForNewScrapeTable($event)" [customSort]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="ui-helper-clearfix" style="text-align: left">
+                            <!-- globle search -->
+                            <input pInputText type="text" style="float:right;width:auto;" size="50"
+                                (input)="newScrapeTable.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search" />
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 1em;">#</th>
+                            <th pSortableColumn="stateabb" style="width: 2em;">State
+                                <p-sortIcon field="stateabb"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="sourcename" style="width: 9em;">Source name
+                                <p-sortIcon field="sourcename"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="dateReceived" style="width: 3em;">Received date
+                                <p-sortIcon field="dateReceived"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="note" style="width: 10em;">Initial note(s)
+                                <p-sortIcon field="note"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td style="width: 1em;">{{i + 1}}</td>
+                            <td style="width: 2em;">{{rowData.stateabb}}</td>
+                            <td style="width: 9em;padding-left: 10px !important;text-align: left;">
+                                {{rowData.sourcename}}</td>
+                            <td style="width: 3em;">{{rowData.dateReceived}}</td>
+                            <td style="width: 10em;padding-left: 10px !important;text-align: left;">{{rowData.note}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="5" style="text-align:center">No records found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<div class="row card-padding">
+    <div class="col-sm-12 tableColumnClass">
+        <app-card [hidHeader]="true" [options]="false">
+            <h5 class="mt-2">Scrape Execution(s) {{scrapeExecutionsLength}}</h5>
+            <div class="primgrTableTop">
+                <p-table #scrapeExecutionTable [columns]="cols" [value]="scrapeExecutionsData"
+                    styleClass="ui-table-primedatatable" (sortFunction)="customSortForScrapeExecutionTable($event)" [customSort]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="ui-helper-clearfix" style="text-align: left">
+                            <!-- globle search -->
+                            <input pInputText type="text" style="float:right;width:auto;" size="50"
+                                (input)="scrapeExecutionTable.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search" />
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 1em;">#</th>
+                            <th pSortableColumn="stateabb" style="width: 2em;">State
+                                <p-sortIcon field="stateabb"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="sourcename" style="width: 9em;">Source name
+                                <p-sortIcon field="sourcename"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="dateReceived" style="width: 3em;">Received date
+                                <p-sortIcon field="dateReceived"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="note" style="width: 10em;">Initial note(s)
+                                <p-sortIcon field="note"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td style="width: 1em;">{{i + 1}}</td>
+                            <td style="width: 2em;">{{rowData.stateabb}}</td>
+                            <td style="width: 9em;padding-left: 10px !important;text-align: left;">
+                                {{rowData.sourcename}}</td>
+                            <td style="width: 3em;">{{rowData.dateReceived}}</td>
+                            <td style="width: 10em;padding-left: 10px !important;text-align: left;">{{rowData.note}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="4" style="text-align:center">No records found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </app-card>
+    </div>
+</div>
